@@ -28,14 +28,25 @@ Batangas State University, Alangilan Campus
 One short paragraph per chapter, Ch1_2_3 to Ch9. Say what the chapter taught
 you and what surprised you. Not what the library does, but what you understood.
 
-### Chapter 1_2_3
-### Chapter 4
-### Chapter 5
-### Chapter 6
-### Chapter 7
-### Chapter 8
-### Chapter 9
+### 📂 Chapter 1_2_3
 
+
+### 📂 Chapter 4
+
+
+### 📂 Chapter 5
+
+
+### 📂 Chapter 6
+
+
+### 📂 Chapter 7
+
+
+### 📂 Chapter 8
+
+
+### 📂 Chapter 9
 
 
 ## Errors I found
