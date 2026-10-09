@@ -210,8 +210,8 @@ I used Gemini Flash 3.6 Extended solely for proofreading (grammar checking and e
 
 ## References
 
-McKinney, W. (2021). Python for Data Analysis, 3rd ed. O'Reilly.
-VanderPlas, J. Python Data Science Handbook.
-GeeksforGeeks, (n.d.). Feature engineering: Scaling, normalization and standardization.
-GeeksforGeeks, (2025, July 23). Feature selection using SelectFromModel and LassoCV in Scikit Learn.
-GeeksforGeeks. (2025, November 29). Discretization.
+- McKinney, W. (2021). Python for Data Analysis, 3rd ed. O'Reilly.
+- VanderPlas, J. Python Data Science Handbook.
+- GeeksforGeeks, (n.d.). Feature engineering: Scaling, normalization and standardization.
+- GeeksforGeeks, (2025, July 23). Feature selection using SelectFromModel and LassoCV in Scikit Learn.
+- GeeksforGeeks. (2025, November 29). Discretization.
