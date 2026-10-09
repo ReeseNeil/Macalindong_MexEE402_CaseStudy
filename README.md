@@ -45,28 +45,28 @@ There are real ones in there. Finding them earns points.
 ### Chapter 1_2_3
 **Mistake 1**: Mean imputation gives an impossible Year
 
-**Problem:** Year is a whole number, but the mean fills it with 2006.406, which is not a real release year. Mean also gets pulled by old games (1980 to 2020).
+**⚠️ Problem:** Year is a whole number, but the mean fills it with 2006.406, which is not a real release year. Mean also gets pulled by old games (1980 to 2020).
 
-Incorrect Code:
+✖️ Incorrect Code:
 ```
 df['Year'].fillna(df['Year'].mean(), inplace=True)
 ```
-Correct Code:
+✔️ Correct Code:
 ```
 df['Year'] = df['Year'].fillna(df['Year'].median())
 ```
 
 **Mistake 2**: Deletion step does nothing
 
-**Problem**: Publisher was already filled with the mode, so `notna()` finds no missing rows to drop. The notebook presents two methods but only one actually ran.
+**⚠️ Problem**: Publisher was already filled with the mode, so `notna()` finds no missing rows to drop.
 
-Incorrect Code:
+✖️ Incorrect Code:
 ```
 df['Publisher'].fillna(df['Publisher'].mode()[0], inplace=True)
 df = df[df['Publisher'].notna()]
 ```
 
-Correct Code:
+✔️ Correct Code:
 ```
 # choose one method per column
 df = df[df['Publisher'].notna()]   # deletion (only 58 rows)
@@ -74,14 +74,14 @@ df = df[df['Publisher'].notna()]   # deletion (only 58 rows)
 
 **Mistake 3**: Outlier filter removes the two best-selling games
 
-**Problem**: `Global_Sales <= 40` deletes Wii Sports (82.74) and Super Mario Bros. (40.24). These are real hits, not errors, so removing them is the wrong fix. 
+**⚠️ Problem**: `Global_Sales <= 40` deletes Wii Sports (82.74) and Super Mario Bros. (40.24), which are real hits and not errors, so removing them is a mistake. 
 
-Incorrect Code:
+✖️ Incorrect Code:
 ```
 df = df[df['Global_Sales'] <= 40]
 ```
 
-Correct Code:
+✔️ Correct Code:
 ```
 # keep real values; cap instead of delete
 df['Global_Sales'] = df['Global_Sales'].clip(upper=40)
@@ -91,44 +91,44 @@ df['Global_Sales'] = df['Global_Sales'].clip(upper=40)
 
 **Mistake 1**: Bins leave the "very hot" label unused
 
-**Problem**: With bins [70, 75, 85, 95, 100] the highest temperature (95) falls in hot, so very hot never appears. Also, 75 lands in cool because intervals are right-closed.
+**⚠️ Problem**: With bins [70, 75, 85, 95, 100] the highest temperature (95) falls in hot, so very hot never appears. Also, 75 lands in cool because intervals are right-closed.
 
 
-Incorrect Code:
+✖️ Incorrect Code:
 ```
 bins = [70, 75, 85, 95, 100]
 ```
 
-Correct Code:
+✔️ Correct Code:
 ```
 bins = [70, 75, 85, 90, 100] 
 ```
 
 **Mistake 2**: Ordinal encoding does not match the markdown
 
-**Problem**: The markdown says Little = 1, Medium = 2, Lots = 3, but the output is 0.0, 1.0, 2.0.
+**⚠️ Problem**: The markdown says Little = 1, Medium = 2, Lots = 3, but the output is 0.0, 1.0, 2.0.
 
 
-Incorrect Code:
+✖️ Incorrect Code:
 ```
 df_3['Ice_encoded'] = ord_enc.fit_transform(df_3[['Ice']])
 ```
 
-Correct Code:
+✔️ Correct Code:
 ```
 df_3['Ice_encoded'] = ord_enc.fit_transform(df_3[['Ice']]) + 1   # now 1, 2, 3
 ```
 
 **Mistake 3**: One-hot output is True/False, not 1/0
 
-**Problem**: Newer pandas returns booleans, but the markdown shows [1,0,0]. Models need numbers.
+**⚠️ Problem**: Newer pandas returns booleans, but the markdown shows 1 and 0.
 
-Incorrect Code:
+✖️ Incorrect Code:
 ```
 df_encoded = pd.get_dummies(df_2, columns=['Weather'])
 ```
 
-Correct Code:
+✔️ Correct Code:
 ```
 df_encoded = pd.get_dummies(df_2, columns=['Weather'], dtype=int)
 ```
@@ -136,14 +136,14 @@ df_encoded = pd.get_dummies(df_2, columns=['Weather'], dtype=int)
 ### Chapter 6
 **Mistake 1**: Z-score threshold is too high
 
-**Problem**: With 8 values, the largest possible Z-score is about 2.65, so a cutoff of 3 can never flag anything.
+**⚠️ Problem**: With 8 values, the largest possible Z-score is about 2.65, so a cutoff of 3 doesn't do anything.
 
-Incorrect Code:
+✖️ Incorrect Code:
 ```
 outliers = data[np.abs(z_scores) > 3]
 ```
 
-Correct Code:
+✔️ Correct Code:
 ```
 outliers = data[np.abs(z_scores) > 2]
 ```
@@ -151,14 +151,14 @@ outliers = data[np.abs(z_scores) > 2]
 ### Chapter 7
 **Mistake 1**: The filter keeps the target and ignores negative correlations
 
-**Problem**: `final grade` correlates 1.0 with itself, so it stays in the "relevant features". Also `> 0.5` would throw away a strong negative feature like -0.9.
+**⚠️ Problem**: `final grade` correlates 1.0 with itself, so it stays in the "relevant features". Also `> 0.5` would throw away a strong negative feature like -0.9.
 
-Incorrect Code:
+✖️ Incorrect Code:
 ```
 relevant_features = correlations[correlations > 0.5]
 ```
 
-Correct Code:
+✔️ Correct Code:
 ```
 correlations = df_2.corr()['final grade'].drop('final grade')
 relevant_features = correlations[correlations.abs() > 0.5]
@@ -166,31 +166,31 @@ relevant_features = correlations[correlations.abs() > 0.5]
 
 **Mistake 2**: `cv=5` on only 7 rows
 
-**Problem**: Each test fold holds 1 or 2 rows, so R-squared is undefined (hence, the repeated `UndefinedMetricWarning`). The RFECV answer (only `assignments completed`) is not reliable.
+**⚠️ Problem**: Each test holds 1 or 2 rows, so R-squared is undefined (hence, the repeated `UndefinedMetricWarning`). The RFECV answer (only `assignments completed`) is not reliable.
 
-Incorrect Code:
+✖️ Incorrect Code:
 ```
 selector = RFECV(estimator, step=1, cv=5)
 ```
 
-Correct Code:
+✔️ Correct Code:
 ```
 selector = RFECV(estimator, step=1, cv=3)
 ```
 
 ### Chapter 8
-**Mistake 1**: Every other column is silently dropped
+**Mistake 1**: Every other column is dropped
 
-**Problem**: `ColumnTransformer` drops unlisted columns by default. The output data contains only `Age` and `Fare`. `Sex`, `Pclass`, and the rest are gone.
+**⚠️ Problem**: `ColumnTransformer` drops unlisted columns by default. The output data contains only `Age` and `Fare`. `Sex`, `Pclass`, and the rest are gone.
 
-Incorrect Code:
+✖️ Incorrect Code:
 ```
 preprocessor = ColumnTransformer(transformers=[
 ('age_fare', pipeline, ['Age', 'Fare'])
 ])
 ```
 
-Correct Code:
+✔️ Correct Code:
 ```
 preprocessor = ColumnTransformer(transformers=[
 ('age_fare', pipeline, ['Age', 'Fare'])
@@ -200,16 +200,16 @@ preprocessor = ColumnTransformer(transformers=[
 ### Chapter 9
 **Mistake 1**: Discretization overwrites the original Age column
 
-**Problem**:  `pd.cut` replaces the numeric Age with text labels. The original data are lost, so "before" and "after" can't be compared. Also, 50 is a young cutoff for `Elderly`.
+**⚠️ Problem**:  `pd.cut` replaces the numeric Age with text labels. So the original data are lost,and and "before" and "after" can't be compared. Also, 50 is a young cutoff for `Elderly`.
 
-Incorrect Code:
+✖️ Incorrect Code:
 ```
 bins = [0, 12, 50, 200]
 labels = ['Child', 'Adult', 'Elderly']
 data['Age'] = pd.cut(data['Age'], bins=bins, labels=labels)
 ```
 
-Correct Code:
+✔️ Correct Code:
 ```
 bins = [0, 12, 60, 120]
 labels = ['Child', 'Adult', 'Senior']
@@ -218,15 +218,15 @@ data['Age_Group'] = pd.cut(data['Age'], bins=bins, labels=labels)
 
 **Mistake 2**: Incorrect "before" and "after" plots
 
-**Problem**:  The "before" cell plots Age after it was already converted (bars 581, 64, 69 are group counts). The "after" cell plots `titanic_preprocessed[:, 2]`, the `Embarked_C` one-hot column, not age.
+**⚠️ Problem**:  The "before" cell plots Age after it was already converted (bars 581, 64, 69 are group counts). The "after" cell plots `titanic_preprocessed[:, 2]`, the `Embarked_C` one-hot column, not age.
 
-Incorrect Code:
+✖️ Incorrect Code:
 ```
 plt.hist(data['Age'].dropna(), alpha=0.5, label='Before discretization')
 plt.hist(titanic_preprocessed[:,2], alpha=0.5, label='After discretization')
 ```
 
-Correct Code:
+✔️ Correct Code:
 ```
 plt.hist(data['Age'].dropna(), bins=20, alpha=0.7, label='Before discretization')
 data['Age_Group'].value_counts().reindex(labels).plot(kind='bar', alpha=0.7, label='After discretization')
@@ -234,12 +234,8 @@ plt.legend()
 plt.show()
 ```
 
-
-
 ## Note on AI tools
-
 I used Gemini Flash 3.6 Extended solely for proofreading (grammar checking and enhancing sentences) my chapter answers. The conversation can be viewed here [Gemini Conversation](https://share.gemini.google/HBPBJWAGfoqF)
-
 
 ## References
 
