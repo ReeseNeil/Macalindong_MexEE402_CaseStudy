@@ -39,40 +39,96 @@ you and what surprised you. Not what the library does, but what you understood.
 
 
 ## Errors I found
-List any mistake you found in the original notebooks, and the correct version.
+> List any mistake you found in the original notebooks, and the correct version.
 There are real ones in there. Finding them earns points.
 
 ### Chapter 1_2_3
-**Error 1**: 
+**Mistake 1**: Mean imputation gives an impossible Year
+**Problem:** Year is a whole number, but the mean fills it with 2006.406, which is not a real release year. Mean also gets pulled by old games (1980 to 2020).
+
 Incorrect Code:
 ```
-
+df['Year'].fillna(df['Year'].mean(), inplace=True)
 ```
 Correct Code:
 ```
+df['Year'] = df['Year'].fillna(df['Year'].median())
+```
+
+**Mistake 2**: Deletion step does nothing
+**Problem**: Publisher was already filled with the mode, so `notna()` finds no missing rows to drop. The notebook presents two methods but only one actually ran.
+
+Incorrect Code:
+```
+df['Publisher'].fillna(df['Publisher'].mode()[0], inplace=True)
+df = df[df['Publisher'].notna()]
+```
+
+Correct Code:
+```
+# choose one method per column
+df = df[df['Publisher'].notna()]   # deletion (only 58 rows)
+```
+
+**Mistake 3**: Outlier filter removes the two best-selling games
+**Problem**: `Global_Sales <= 40` deletes Wii Sports (82.74) and Super Mario Bros. (40.24). These are real hits, not errors, so removing them is the wrong fix. 
+
+Incorrect Code:
+```
+df = df[df['Global_Sales'] <= 40]
+```
+
+Correct Code:
+```
+# keep real values; cap instead of delete
+df['Global_Sales'] = df['Global_Sales'].clip(upper=40)
 ```
 
 ### Chapter 4
-**Error 1**: 
+
+**Mistake 1**: Bins leave the "very hot" label unused
+**Problem**: With bins [70, 75, 85, 95, 100] the highest temperature (95) falls in hot, so very hot never appears. Also, 75 lands in cool because intervals are right-closed.
+
+
 Incorrect Code:
 ```
+bins = [70, 75, 85, 95, 100]
 ```
 
 Correct Code:
 ```
+bins = [70, 75, 85, 90, 100] 
 ```
 
-**Error 2**: 
+**Mistake 2**: Ordinal encoding does not match the markdown
+**Problem**: The markdown says Little = 1, Medium = 2, Lots = 3, but the output is 0.0, 1.0, 2.0.
+
+
 Incorrect Code:
 ```
+df_3['Ice_encoded'] = ord_enc.fit_transform(df_3[['Ice']])
 ```
 
 Correct Code:
 ```
+df_3['Ice_encoded'] = ord_enc.fit_transform(df_3[['Ice']]) + 1   # now 1, 2, 3
+```
+
+**Mistake 3**: One-hot output is True/False, not 1/0
+**Problem**: Newer pandas returns booleans, but the markdown shows [1,0,0]. Models need numbers.
+
+Incorrect Code:
+```
+df_encoded = pd.get_dummies(df_2, columns=['Weather'])
+```
+
+Correct Code:
+```
+df_encoded = pd.get_dummies(df_2, columns=['Weather'], dtype=int)
 ```
 
 ### Chapter 5
-**Error 1**: 
+**Mistake 1**: 
 
 Incorrect Code:
 ```
@@ -83,7 +139,7 @@ Correct Code:
 ```
 
 ### Chapter 6
-**Error 1**: 
+**Mistake 1**: 
 
 Incorrect Code:
 ```
@@ -94,7 +150,7 @@ Correct Code:
 ```
 
 ### Chapter 7
-**Error 1**:
+**Mistake 1**:
 Incorrect Code:
 ```
 ```
@@ -104,7 +160,7 @@ Correct Code:
 ```
 
 ### Chapter 8
-**Error 1**:
+**Mistake 1**:
 
 Incorrect Code:
 ```
@@ -115,7 +171,7 @@ Correct Code:
 ```
 
 ### Chapter 9
-**Error 1**: 
+**Mistake 1**: 
 
 Incorrect Code:
 ```
