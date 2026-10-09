@@ -41,10 +41,10 @@ I understood that scaling tames the scope of numerical data so that they are nor
 I learned what mathematical processes such as Z-scores and IQR to use to identify outliers or data points that is extremely separate and different from the normal data distribution. One thing that piqued my attention is the thought that outliers are not always "wrong data" that has to be removed; and that removing them thoughtlessly may remove remarkable patterns that actually exist in real life. Hence, it is sometimes more optimal to cap or transform those values rather than directly removing them.
 
 ### 📂 Chapter 7: Feature Selection
-
+I learned from this chapter that choosing the most relevant subset among all the features in the dataset is crucial to speed up training and minimize model complexity. This shattered my initial belief that more data or features leads to better models. When in reality, adding redundant features only lowers accuracy. It was also fascinating how methods exist, such as `LassoCV`, for reducing the gravity of trivial variables to zero. 
 
 ### 📂 Chapter 8: Constructing a Preprocessing Pipeline
-
+I learned that preprocessing pipelines are simply sticked-together processes in cleaning data to make the workflow, automatic, clean, and more organized. 
 
 ### 📂 Chapter 9: Full Pipeline and Visualization
 
