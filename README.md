@@ -65,23 +65,6 @@ In this last chapter, a full end-to-end pipeline for both numerical and categori
 > List any mistake you found in the original notebooks, and the correct version.
 There are real ones in there. Finding them earns points.
 
-### Chapter 1_2_3
-**Mistake 1**: Deletion step does nothing
-
-**⚠️ Problem**: Publisher was already filled with the mode, so `notna()` finds no missing rows to drop.
-
-✖️ Incorrect Code:
-```python
-df['Publisher'].fillna(df['Publisher'].mode()[0], inplace=True)
-df = df[df['Publisher'].notna()]
-```
-
-✔️ Correct Code:
-```python
-# choose one method per column
-df = df[df['Publisher'].notna()]   # deletion (only 58 rows)
-```
-
 ### Chapter 4
 
 **Mistake 1**: Bins leave the "very hot" label unused
