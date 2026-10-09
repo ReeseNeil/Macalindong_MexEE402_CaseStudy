@@ -29,13 +29,13 @@ One short paragraph per chapter, Ch1_2_3 to Ch9. Say what the chapter taught
 you and what surprised you. Not what the library does, but what you understood.
 
 ### 📂 Chapter 1_2_3
-
+I learned from this chapter that raw data is usually messy and that analyzing and preprocessing it is important to identify and fix missing values, inconsistencies, and irrelevant columns prior to training. Sometimes, columns may seem fine and organized such as `Rank`, but upon closer inspection, it introduces nothing and only introduces noise in machine learning since it's just a positional index without any patterns.  
 
 ### 📂 Chapter 4
-
+This chapter showed how to uncover hidden relations by using ratios and correct category encoding, which deepens the context available for machine learning. Another thing that surprised me is the damaging effects of incorrect encoding such as using ordinal encoding for nominal categories such as weather wherein the model is forced to assume incorrect hierarchy and mathematical sequence, thus leading to wrong logic and bias.
 
 ### 📂 Chapter 5
-
+I understood that scaling tames the scope of numerical data so that they are normalized and equal with every other feature in model calculations. The most fascinating aspect of this chapter is that an algorithm's absence of inherent understanding of scale introduces bias as it will lead the model to lean heavily to higher numerical data (An example of this is comparing `Grades` and `Study Hours`). Without scaling, the higher numbers will overshadow other numerical data, thus obscuring the true underlying pattersn. 
 
 ### 📂 Chapter 6
 
