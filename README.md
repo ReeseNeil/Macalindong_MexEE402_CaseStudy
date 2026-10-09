@@ -97,20 +97,6 @@ df_3['Ice_encoded'] = ord_enc.fit_transform(df_3[['Ice']])
 df_3['Ice_encoded'] = ord_enc.fit_transform(df_3[['Ice']]) + 1   # now 1, 2, 3
 ```
 
-**Mistake 3**: One-hot output is True/False, not 1/0
-
-**⚠️ Problem**: Newer pandas returns booleans, but the markdown shows 1 and 0.
-
-✖️ Incorrect Code:
-```python
-df_encoded = pd.get_dummies(df_2, columns=['Weather'])
-```
-
-✔️ Correct Code:
-```python
-df_encoded = pd.get_dummies(df_2, columns=['Weather'], dtype=int)
-```
-
 ### Chapter 6
 **Mistake 1**: Z-score threshold is too high
 
@@ -140,25 +126,6 @@ relevant_features = correlations[correlations > 0.5]
 ```python
 correlations = df_2.corr()['final grade'].drop('final grade')
 relevant_features = correlations[correlations.abs() > 0.5]
-```
-
-### Chapter 8
-**Mistake 1**: Every other column is dropped
-
-**⚠️ Problem**: `ColumnTransformer` drops unlisted columns by default. The output data contains only `Age` and `Fare`. `Sex`, `Pclass`, and the rest are gone.
-
-✖️ Incorrect Code:
-```python
-preprocessor = ColumnTransformer(transformers=[
-('age_fare', pipeline, ['Age', 'Fare'])
-])
-```
-
-✔️ Correct Code:
-```python
-preprocessor = ColumnTransformer(transformers=[
-('age_fare', pipeline, ['Age', 'Fare'])
-], remainder='passthrough')
 ```
 
 ### Chapter 9
