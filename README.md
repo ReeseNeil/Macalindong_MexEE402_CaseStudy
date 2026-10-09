@@ -29,7 +29,7 @@ Batangas State University, Alangilan Campus
 
 ### 📂 Chapter 1_2_3: Introduction to preprocessing, exploring, and cleaning data.
 
-I learned from this chapter that raw data is usually messy and that analyzing and preprocessing it is important to identify and fix missing values, inconsistencies, and irrelevant columns prior to training. Using inspection tools like `head()`, `info()`, and `describe()` makes it easy to spot specific issues such as missing values in `Year` and `Publisher` within the imported `vgsales` dataset. Columns may also seem fine and organized at the surface, such as `Rank`, but closer inspection reveals that it only introduces noise in machine learning since it's just a positional index without any patterns.  
+I learned from this chapter that raw data is usually messy and that analyzing and preprocessing it is important to identify and fix missing values, inconsistencies, and irrelevant columns prior to training. Using inspection tools like `head()`, `info()`, and `describe()` makes it easy to spot specific issues such as missing values in `Year` and `Publisher` within the imported `vgsales` dataset. Columns may also seem fine and organized on the surface, such as `Rank`, but closer inspection reveals that it only introduces noise in machine learning since it's just a positional index without any patterns.  
 
 
 ### 📂 Chapter 4: Transformation, Feature Engineering, and Encoding
@@ -44,7 +44,7 @@ I understood that scaling tames the scope of numerical data so that they are nor
 
 ### 📂 Chapter 6: Outlier Detection
 
-I learned what mathematical processes such as Z-scores and IQR to use to identify outliers or data points that is extremely separate and different from the normal data distribution. One thing that piqued my attention is the thought that outliers are not always "wrong data" that has to be removed; and that removing them thoughtlessly may remove remarkable patterns that actually exist in real life. Hence, it is sometimes more optimal to cap or transform those values rather than directly removing them.
+I learned what mathematical processes such as Z-scores and IQR to use to identify outliers or data points that are extremely separate and different from the normal data distribution. One thing that piqued my attention is the thought that outliers are not always "wrong data" that has to be removed; and that removing them thoughtlessly may remove remarkable patterns that actually exist in real life. Hence, it is sometimes more optimal to cap or transform those values rather than directly removing them.
 
 
 ### 📂 Chapter 7: Feature Selection
@@ -59,7 +59,7 @@ I learned that preprocessing pipelines are simply stick-together processes in cl
 
 ### 📂 Chapter 9: Full Pipeline and Visualization
 
-In this last chapter, a full end-to-end pipeline for both numerical and categorical data was stitched together along with its visual representations (via `matplotlib.pylot` and `seaborn`) based on the Titanic dataset (`train.csv`). Another useful thing that I learned here is the importance of making visual plots after preprocessing not just for formality and aesthetic purposes but rather to validate how processes such as age discretization change what the data tells us.
+In this last chapter, a full end-to-end pipeline for both numerical and categorical data was stitched together along with its visual representations (via `matplotlib.pyplot` and `seaborn`) based on the Titanic dataset (`train.csv`). Another useful thing that I learned here is the importance of making visual plots after preprocessing not just for formality and aesthetic purposes but rather to validate how processes such as age discretization change what the data tells us.
 
 ## Errors I found
 > List any mistake you found in the original notebooks, and the correct version.
