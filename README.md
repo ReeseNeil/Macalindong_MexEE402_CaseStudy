@@ -28,25 +28,25 @@ Batangas State University, Alangilan Campus
 One short paragraph per chapter, Ch1_2_3 to Ch9. Say what the chapter taught
 you and what surprised you. Not what the library does, but what you understood.
 
-### 📂 Chapter 1_2_3
+### 📂 Chapter 1_2_3: Introduction to preprocessing exploring, and cleaning data.
 I learned from this chapter that raw data is usually messy and that analyzing and preprocessing it is important to identify and fix missing values, inconsistencies, and irrelevant columns prior to training. Sometimes, columns may seem fine and organized such as `Rank`, but upon closer inspection, it introduces nothing and only introduces noise in machine learning since it's just a positional index without any patterns.  
 
-### 📂 Chapter 4
+### 📂 Chapter 4: Transformation, Feature Engineering, and Encoding
 This chapter showed how to uncover hidden relations by using ratios and correct category encoding, which deepens the context available for machine learning. Another thing that surprised me is the damaging effects of incorrect encoding such as using ordinal encoding for nominal categories such as weather wherein the model is forced to assume incorrect hierarchy and mathematical sequence, thus leading to wrong logic and bias.
 
-### 📂 Chapter 5
+### 📂 Chapter 5: Scaling and Normalization
 I understood that scaling tames the scope of numerical data so that they are normalized and equal with every other feature in model calculations. The most fascinating aspect of this chapter is that an algorithm's absence of inherent understanding of scale introduces bias as it will lead the model to lean heavily to higher numerical data (An example of this is comparing `Grades` and `Study Hours`). Without scaling, the higher numbers will overshadow other numerical data, thus obscuring the true underlying pattersn. 
 
-### 📂 Chapter 6
+### 📂 Chapter 6: Outlier Detection
+I learned what mathematical processes such as Z-scores and IQR to use to identify outliers or data points that is extremely separate and different from the normal data distribution. One thing that piqued my attention is the thought that outliers are not always "wrong data" that has to be removed; and that removing them thoughtlessly may remove remarkable patterns that actually exist in real life. Hence, it is sometimes more optimal to cap or transform those values rather than directly removing them.
+
+### 📂 Chapter 7: Feature Selection
 
 
-### 📂 Chapter 7
+### 📂 Chapter 8: Constructing a Preprocessing Pipeline
 
 
-### 📂 Chapter 8
-
-
-### 📂 Chapter 9
+### 📂 Chapter 9: Full Pipeline and Visualization
 
 
 ## Errors I found
