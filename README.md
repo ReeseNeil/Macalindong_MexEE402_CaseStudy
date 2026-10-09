@@ -72,21 +72,6 @@ df = df[df['Publisher'].notna()]
 df = df[df['Publisher'].notna()]   # deletion (only 58 rows)
 ```
 
-**Mistake 3**: Outlier filter removes the two best-selling games
-
-**⚠️ Problem**: `Global_Sales <= 40` deletes Wii Sports (82.74) and Super Mario Bros. (40.24), which are real hits and not errors, so removing them is a mistake. 
-
-✖️ Incorrect Code:
-```
-df = df[df['Global_Sales'] <= 40]
-```
-
-✔️ Correct Code:
-```
-# keep real values; cap instead of delete
-df['Global_Sales'] = df['Global_Sales'].clip(upper=40)
-```
-
 ### Chapter 4
 
 **Mistake 1**: Bins leave the "very hot" label unused
@@ -151,7 +136,7 @@ outliers = data[np.abs(z_scores) > 2]
 ### Chapter 7
 **Mistake 1**: The filter keeps the target and ignores negative correlations
 
-**⚠️ Problem**: `final grade` correlates 1.0 with itself, so it stays in the "relevant features". Also `> 0.5` would throw away a strong negative feature like -0.9.
+**⚠️ Problem**: `final grade` correlates 1.0 with itself, so it stays in the "relevant features". Also `> 0.5` would throw away a significant feature with negative correlation like -0.9.
 
 ✖️ Incorrect Code:
 ```
@@ -162,20 +147,6 @@ relevant_features = correlations[correlations > 0.5]
 ```
 correlations = df_2.corr()['final grade'].drop('final grade')
 relevant_features = correlations[correlations.abs() > 0.5]
-```
-
-**Mistake 2**: `cv=5` on only 7 rows
-
-**⚠️ Problem**: Each test holds 1 or 2 rows, so R-squared is undefined (hence, the repeated `UndefinedMetricWarning`). The RFECV answer (only `assignments completed`) is not reliable.
-
-✖️ Incorrect Code:
-```
-selector = RFECV(estimator, step=1, cv=5)
-```
-
-✔️ Correct Code:
-```
-selector = RFECV(estimator, step=1, cv=3)
 ```
 
 ### Chapter 8
