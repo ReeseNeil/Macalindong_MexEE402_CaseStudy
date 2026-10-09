@@ -43,12 +43,94 @@ List any mistake you found in the original notebooks, and the correct version.
 There are real ones in there. Finding them earns points.
 
 ### Chapter 1_2_3
+**Error 1**: Filling missing values (Year / Publisher) on the whole dataset before performing the train-test split leaks summary statistics (like median or mean) from test data into training data.
+
+Incorrect Code:
+```
+# Imputing on the entire dataframe BEFORE splitting causes Data Leakage
+df['Year'].fillna(df['Year'].median(), inplace=True)
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
+```
+Correct Code:
+```
+# Split the dataset FIRST
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42
+)
+
+# Compute median ONLY on X_train and apply to both train and test
+median_year = X_train['Year'].median()
+X_train['Year'].fillna(median_year, inplace=True)
+X_test['Year'].fillna(median_year, inplace=True)
+```
 ### Chapter 4
+**Error 1**:
+
+Incorrect Code:
+```
+```
+
+Correct Code:
+```
+```
+
 ### Chapter 5
+**Error 1**:
+
+Incorrect Code:
+```
+```
+
+Correct Code:
+```
+```
+
 ### Chapter 6
+**Error 1**:
+
+Incorrect Code:
+```
+```
+
+Correct Code:
+```
+```
+
 ### Chapter 7
+**Error 1**:
+
+Incorrect Code:
+```
+```
+
+Correct Code:
+```
+```
+
 ### Chapter 8
+**Error 1**:
+
+Incorrect Code:
+```
+```
+
+Correct Code:
+```
+```
+
 ### Chapter 9
+**Error 1**:
+
+Incorrect Code:
+```
+```
+
+Correct Code:
+```
+```
 
 
 
