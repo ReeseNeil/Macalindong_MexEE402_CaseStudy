@@ -14,7 +14,7 @@ Batangas State University, Alangilan Campus
 
 ## Notebook links
 
-| Chapter | Member 1 |
+| Chapter | Macalindong |
 |---|---|
 | Ch1_2_3 | [link](https://colab.research.google.com/drive/1TZdJuudcMxbkQTZg2ylyWfC0F09WTBrx?usp=sharing) |
 | Ch4 | [link](https://colab.research.google.com/drive/1Ke3_lDXun6bhcCKbVWhTOx-KS5xLNI4u?usp=sharing) |
