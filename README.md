@@ -66,20 +66,7 @@ In this last chapter, a full end-to-end pipeline for both numerical and categori
 There are real ones in there. Finding them earns points.
 
 ### Chapter 1_2_3
-**Mistake 1**: Mean imputation gives an impossible Year
-
-**⚠️ Problem:** Year is a whole number, but the mean fills it with 2006.406, which is not a real release year. Mean also gets pulled by old games (1980 to 2020).
-
-✖️ Incorrect Code:
-```python
-df['Year'].fillna(df['Year'].mean(), inplace=True)
-```
-✔️ Correct Code:
-```python
-df['Year'] = df['Year'].fillna(df['Year'].median())
-```
-
-**Mistake 2**: Deletion step does nothing
+**Mistake 1**: Deletion step does nothing
 
 **⚠️ Problem**: Publisher was already filled with the mode, so `notna()` finds no missing rows to drop.
 
