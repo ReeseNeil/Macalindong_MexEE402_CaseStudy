@@ -54,7 +54,7 @@ There are real ones in there. Finding them earns points.
 
 ## Note on AI tools
 
-I used Gemini for solely for proofreading (grammar checking and enhancing sentences) my chapter answers. The conversation can be viewed here [Gemini Conversation](https://share.gemini.google/HBPBJWAGfoqF)
+I used Gemini Flash 3.6 Extended solely for proofreading (grammar checking and enhancing sentences) my chapter answers. The conversation can be viewed here [Gemini Conversation](https://share.gemini.google/HBPBJWAGfoqF)
 
 
 ## References
