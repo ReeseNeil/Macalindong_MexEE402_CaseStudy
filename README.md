@@ -29,12 +29,12 @@ Batangas State University, Alangilan Campus
 
 ### 📂 Chapter 1_2_3: Introduction to preprocessing, exploring, and cleaning data.
 
-I learned from this chapter that raw data is usually messy and that analyzing and preprocessing it is important to identify and fix missing values, inconsistencies, and irrelevant columns prior to training. Sometimes, columns may seem fine and organized, such as `Rank`, but upon closer inspection, it introduces nothing and only introduces noise in machine learning since it's just a positional index without any patterns.  
+I learned from this chapter that raw data is usually messy and that analyzing and preprocessing it is important to identify and fix missing values, inconsistencies, and irrelevant columns prior to training. Using inspection tools like `head()`, `info()`, and `describe()` makes it easy to spot specific issues such as missing values in `Year` and `Publisher` within the imported `vgsales` dataset. Columns may also seem fine and organized at the surface, such as `Rank`, but closer inspection reveals that it only introduces noise in machine learning since it's just a positional index without any patterns.  
 
 
 ### 📂 Chapter 4: Transformation, Feature Engineering, and Encoding
 
-This chapter showed how to uncover hidden relations by using ratios and correct category encoding, which deepens the context available for machine learning. Another thing that surprised me is the damaging effects of incorrect encoding, such as using ordinal encoding for nominal categories such as weather, wherein the model is forced to assume incorrect hierarchy and mathematical sequence, thus leading to wrong logic and bias.
+This chapter showed how to uncover hidden relations by using ratios and correct category encoding, which deepens the context available for machine learning. An example of this is creating interaction features like `Lemonade per Degree` or binning continuous data into labels like `cool` and `hot`. Another thing that surprised me is the damaging effects of incorrect encoding, such as using ordinal encoding for nominal categories such as weather, wherein the model is forced to assume incorrect hierarchy and mathematical sequence, thus leading to wrong logic and bias.
 
 
 ### 📂 Chapter 5: Scaling and Normalization
@@ -54,12 +54,12 @@ I learned from this chapter that processes, like the most relevant IQR, are set 
 
 ### 📂 Chapter 8: Constructing a Preprocessing Pipeline
 
-I learned that preprocessing pipelines are simply stick-together processes in cleaning data to make the workflow automatic, clean, and more organized. 
+I learned that preprocessing pipelines are simply stick-together processes in cleaning data to make the workflow automatic, clean, and more organized. By chaining steps like `SimpleImputer` and `StandardScaler` into a single pipeline with `ColumnTransformer`, preprocessing now becomes more modular.
 
 
 ### 📂 Chapter 9: Full Pipeline and Visualization
 
-In this last chapter, a full end-to-end pipeline for both numerical and categorical data was stitched together along with its visual representations (via matplotlib.pylot and seaborn) based on the ``Titanic dataset. Another useful thing that I learned here is the importance of making visual plots after preprocessing not just for formality and aesthetic purposes but rather to validate how processes such as age discretization change what the data tells us.
+In this last chapter, a full end-to-end pipeline for both numerical and categorical data was stitched together along with its visual representations (via `matplotlib.pylot` and `seaborn`) based on the Titanic dataset (`train.csv`). Another useful thing that I learned here is the importance of making visual plots after preprocessing not just for formality and aesthetic purposes but rather to validate how processes such as age discretization change what the data tells us.
 
 ## Errors I found
 > List any mistake you found in the original notebooks, and the correct version.
@@ -238,3 +238,4 @@ I used Gemini Flash 3.6 Extended solely for proofreading (grammar checking and e
 - GeeksforGeeks, (n.d.). Feature engineering: Scaling, normalization and standardization.
 - GeeksforGeeks, (2025, July 23). Feature selection using SelectFromModel and LassoCV in Scikit Learn.
 - GeeksforGeeks. (2025, November 29). Discretization.
+- Pandas (n.d.). User Guide — pandas 3.0.6 documentation
