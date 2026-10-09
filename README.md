@@ -48,11 +48,11 @@ There are real ones in there. Finding them earns points.
 **⚠️ Problem:** Year is a whole number, but the mean fills it with 2006.406, which is not a real release year. Mean also gets pulled by old games (1980 to 2020).
 
 ✖️ Incorrect Code:
-```
+```python
 df['Year'].fillna(df['Year'].mean(), inplace=True)
 ```
 ✔️ Correct Code:
-```
+```python
 df['Year'] = df['Year'].fillna(df['Year'].median())
 ```
 
@@ -61,13 +61,13 @@ df['Year'] = df['Year'].fillna(df['Year'].median())
 **⚠️ Problem**: Publisher was already filled with the mode, so `notna()` finds no missing rows to drop.
 
 ✖️ Incorrect Code:
-```
+```python
 df['Publisher'].fillna(df['Publisher'].mode()[0], inplace=True)
 df = df[df['Publisher'].notna()]
 ```
 
 ✔️ Correct Code:
-```
+```python
 # choose one method per column
 df = df[df['Publisher'].notna()]   # deletion (only 58 rows)
 ```
@@ -80,12 +80,12 @@ df = df[df['Publisher'].notna()]   # deletion (only 58 rows)
 
 
 ✖️ Incorrect Code:
-```
+```python
 bins = [70, 75, 85, 95, 100]
 ```
 
 ✔️ Correct Code:
-```
+```python
 bins = [70, 75, 85, 90, 100] 
 ```
 
@@ -95,12 +95,12 @@ bins = [70, 75, 85, 90, 100]
 
 
 ✖️ Incorrect Code:
-```
+```python
 df_3['Ice_encoded'] = ord_enc.fit_transform(df_3[['Ice']])
 ```
 
 ✔️ Correct Code:
-```
+```python
 df_3['Ice_encoded'] = ord_enc.fit_transform(df_3[['Ice']]) + 1   # now 1, 2, 3
 ```
 
@@ -109,12 +109,12 @@ df_3['Ice_encoded'] = ord_enc.fit_transform(df_3[['Ice']]) + 1   # now 1, 2, 3
 **⚠️ Problem**: Newer pandas returns booleans, but the markdown shows 1 and 0.
 
 ✖️ Incorrect Code:
-```
+```python
 df_encoded = pd.get_dummies(df_2, columns=['Weather'])
 ```
 
 ✔️ Correct Code:
-```
+```python
 df_encoded = pd.get_dummies(df_2, columns=['Weather'], dtype=int)
 ```
 
@@ -124,12 +124,12 @@ df_encoded = pd.get_dummies(df_2, columns=['Weather'], dtype=int)
 **⚠️ Problem**: With 8 values, the largest possible Z-score is about 2.65, so a cutoff of 3 doesn't do anything.
 
 ✖️ Incorrect Code:
-```
+```python
 outliers = data[np.abs(z_scores) > 3]
 ```
 
 ✔️ Correct Code:
-```
+```python
 outliers = data[np.abs(z_scores) > 2]
 ```
 
@@ -139,12 +139,12 @@ outliers = data[np.abs(z_scores) > 2]
 **⚠️ Problem**: `final grade` correlates 1.0 with itself, so it stays in the "relevant features". Also `> 0.5` would throw away a significant feature with negative correlation like -0.9.
 
 ✖️ Incorrect Code:
-```
+```python
 relevant_features = correlations[correlations > 0.5]
 ```
 
 ✔️ Correct Code:
-```
+```python
 correlations = df_2.corr()['final grade'].drop('final grade')
 relevant_features = correlations[correlations.abs() > 0.5]
 ```
@@ -155,14 +155,14 @@ relevant_features = correlations[correlations.abs() > 0.5]
 **⚠️ Problem**: `ColumnTransformer` drops unlisted columns by default. The output data contains only `Age` and `Fare`. `Sex`, `Pclass`, and the rest are gone.
 
 ✖️ Incorrect Code:
-```
+```python
 preprocessor = ColumnTransformer(transformers=[
 ('age_fare', pipeline, ['Age', 'Fare'])
 ])
 ```
 
 ✔️ Correct Code:
-```
+```python
 preprocessor = ColumnTransformer(transformers=[
 ('age_fare', pipeline, ['Age', 'Fare'])
 ], remainder='passthrough')
@@ -174,14 +174,14 @@ preprocessor = ColumnTransformer(transformers=[
 **⚠️ Problem**:  `pd.cut` replaces the numeric Age with text labels. So the original data are lost,and and "before" and "after" can't be compared. Also, 50 is a young cutoff for `Elderly`.
 
 ✖️ Incorrect Code:
-```
+```python
 bins = [0, 12, 50, 200]
 labels = ['Child', 'Adult', 'Elderly']
 data['Age'] = pd.cut(data['Age'], bins=bins, labels=labels)
 ```
 
 ✔️ Correct Code:
-```
+```python
 bins = [0, 12, 60, 120]
 labels = ['Child', 'Adult', 'Senior']
 data['Age_Group'] = pd.cut(data['Age'], bins=bins, labels=labels)
@@ -192,13 +192,13 @@ data['Age_Group'] = pd.cut(data['Age'], bins=bins, labels=labels)
 **⚠️ Problem**:  The "before" cell plots Age after it was already converted (bars 581, 64, 69 are group counts). The "after" cell plots `titanic_preprocessed[:, 2]`, the `Embarked_C` one-hot column, not age.
 
 ✖️ Incorrect Code:
-```
+```python
 plt.hist(data['Age'].dropna(), alpha=0.5, label='Before discretization')
 plt.hist(titanic_preprocessed[:,2], alpha=0.5, label='After discretization')
 ```
 
 ✔️ Correct Code:
-```
+```python
 plt.hist(data['Age'].dropna(), bins=20, alpha=0.7, label='Before discretization')
 data['Age_Group'].value_counts().reindex(labels).plot(kind='bar', alpha=0.7, label='After discretization')
 plt.legend()
