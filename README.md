@@ -49,7 +49,7 @@ I learned what mathematical processes such as Z-scores and IQR to use to identif
 
 ### 📂 Chapter 7: Feature Selection
 
-I learned from this chapter that processes, like the most relevant IQR, are set among all the features in the dataset and are crucial to speed up training and minimize model complexity. This shattered my initial belief that more data or features leads to better models. When in reality, adding redundant features removed accuracy. It was also fascinating how methods exist, such as `LassoCV`, for reducing the gravity of trivial variables to zero. 
+I learned from this chapter that choosing the most relevant subset among all the features are crucial to speed up training and minimize model complexity. This shattered my initial belief that more data or features leads to better models. When in reality, adding redundant features reduced accuracy. It was also fascinating how methods exist, such as `LassoCV`, for reducing the gravity of trivial variables to zero. 
 
 
 ### 📂 Chapter 8: Constructing a Preprocessing Pipeline
