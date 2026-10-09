@@ -44,6 +44,7 @@ There are real ones in there. Finding them earns points.
 
 ### Chapter 1_2_3
 **Mistake 1**: Mean imputation gives an impossible Year
+
 **Problem:** Year is a whole number, but the mean fills it with 2006.406, which is not a real release year. Mean also gets pulled by old games (1980 to 2020).
 
 Incorrect Code:
@@ -56,6 +57,7 @@ df['Year'] = df['Year'].fillna(df['Year'].median())
 ```
 
 **Mistake 2**: Deletion step does nothing
+
 **Problem**: Publisher was already filled with the mode, so `notna()` finds no missing rows to drop. The notebook presents two methods but only one actually ran.
 
 Incorrect Code:
@@ -71,6 +73,7 @@ df = df[df['Publisher'].notna()]   # deletion (only 58 rows)
 ```
 
 **Mistake 3**: Outlier filter removes the two best-selling games
+
 **Problem**: `Global_Sales <= 40` deletes Wii Sports (82.74) and Super Mario Bros. (40.24). These are real hits, not errors, so removing them is the wrong fix. 
 
 Incorrect Code:
@@ -87,6 +90,7 @@ df['Global_Sales'] = df['Global_Sales'].clip(upper=40)
 ### Chapter 4
 
 **Mistake 1**: Bins leave the "very hot" label unused
+
 **Problem**: With bins [70, 75, 85, 95, 100] the highest temperature (95) falls in hot, so very hot never appears. Also, 75 lands in cool because intervals are right-closed.
 
 
@@ -101,6 +105,7 @@ bins = [70, 75, 85, 90, 100]
 ```
 
 **Mistake 2**: Ordinal encoding does not match the markdown
+
 **Problem**: The markdown says Little = 1, Medium = 2, Lots = 3, but the output is 0.0, 1.0, 2.0.
 
 
@@ -115,6 +120,7 @@ df_3['Ice_encoded'] = ord_enc.fit_transform(df_3[['Ice']]) + 1   # now 1, 2, 3
 ```
 
 **Mistake 3**: One-hot output is True/False, not 1/0
+
 **Problem**: Newer pandas returns booleans, but the markdown shows [1,0,0]. Models need numbers.
 
 Incorrect Code:
@@ -129,6 +135,7 @@ df_encoded = pd.get_dummies(df_2, columns=['Weather'], dtype=int)
 
 ### Chapter 6
 **Mistake 1**: Z-score threshold is too high
+
 **Problem**: With 8 values, the largest possible Z-score is about 2.65, so a cutoff of 3 can never flag anything.
 
 Incorrect Code:
@@ -143,6 +150,7 @@ outliers = data[np.abs(z_scores) > 2]
 
 ### Chapter 7
 **Mistake 1**: The filter keeps the target and ignores negative correlations
+
 **Problem**: `final grade` correlates 1.0 with itself, so it stays in the "relevant features". Also `> 0.5` would throw away a strong negative feature like -0.9.
 
 Incorrect Code:
@@ -157,6 +165,7 @@ relevant_features = correlations[correlations.abs() > 0.5]
 ```
 
 **Mistake 2**: `cv=5` on only 7 rows
+
 **Problem**: Each test fold holds 1 or 2 rows, so R-squared is undefined (hence, the repeated `UndefinedMetricWarning`). The RFECV answer (only `assignments completed`) is not reliable.
 
 Incorrect Code:
@@ -171,6 +180,7 @@ selector = RFECV(estimator, step=1, cv=3)
 
 ### Chapter 8
 **Mistake 1**: Every other column is silently dropped
+
 **Problem**: `ColumnTransformer` drops unlisted columns by default. The output data contains only `Age` and `Fare`. `Sex`, `Pclass`, and the rest are gone.
 
 Incorrect Code:
@@ -189,6 +199,7 @@ preprocessor = ColumnTransformer(transformers=[
 
 ### Chapter 9
 **Mistake 1**: Discretization overwrites the original Age column
+
 **Problem**:  `pd.cut` replaces the numeric Age with text labels. The original data are lost, so "before" and "after" can't be compared. Also, 50 is a young cutoff for `Elderly`.
 
 Incorrect Code:
@@ -206,6 +217,7 @@ data['Age_Group'] = pd.cut(data['Age'], bins=bins, labels=labels)
 ```
 
 **Mistake 2**: Incorrect "before" and "after" plots
+
 **Problem**:  The "before" cell plots Age after it was already converted (bars 581, 64, 69 are group counts). The "after" cell plots `titanic_preprocessed[:, 2]`, the `Embarked_C` one-hot column, not age.
 
 Incorrect Code:
