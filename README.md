@@ -113,7 +113,21 @@ outliers = data[np.abs(z_scores) > 2]
 ```
 
 ### Chapter 7
-**Mistake 1**: The filter keeps the target and ignores negative correlations
+**Mistake 1**: cv=5 on only 7 rows
+
+**⚠️ Problem**: Each test fold holds 1 or 2 rows, so R-squared is undefined (the repeated UndefinedMetricWarning). The RFECV answer (only assignments completed) is not reliable.
+
+✖️ Incorrect Code:
+```python
+selector = RFECV(estimator, step=1, cv=5)
+```
+
+✔️ Correct Code:
+```python
+selector = RFECV(estimator, step=1, cv=3)
+```
+
+**Mistake 2**: The filter keeps the target and ignores negative correlations
 
 **⚠️ Problem**: `final grade` correlates 1.0 with itself, so it stays in the "relevant features". Also `> 0.5` would throw away a significant feature with negative correlation like -0.9.
 
