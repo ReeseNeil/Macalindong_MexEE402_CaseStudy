@@ -127,58 +127,99 @@ Correct Code:
 df_encoded = pd.get_dummies(df_2, columns=['Weather'], dtype=int)
 ```
 
-### Chapter 5
-**Mistake 1**: 
-
-Incorrect Code:
-```
-```
-
-Correct Code:
-```
-```
-
 ### Chapter 6
-**Mistake 1**: 
+**Mistake 1**: Z-score threshold is too high
+**Problem**: With 8 values, the largest possible Z-score is about 2.65, so a cutoff of 3 can never flag anything.
 
 Incorrect Code:
 ```
+outliers = data[np.abs(z_scores) > 3]
 ```
 
 Correct Code:
 ```
+outliers = data[np.abs(z_scores) > 2]
 ```
 
 ### Chapter 7
-**Mistake 1**:
+**Mistake 1**: The filter keeps the target and ignores negative correlations
+**Problem**: `final grade` correlates 1.0 with itself, so it stays in the "relevant features". Also `> 0.5` would throw away a strong negative feature like -0.9.
+
 Incorrect Code:
 ```
+relevant_features = correlations[correlations > 0.5]
 ```
 
 Correct Code:
 ```
+correlations = df_2.corr()['final grade'].drop('final grade')
+relevant_features = correlations[correlations.abs() > 0.5]
+```
+
+**Mistake 2**: `cv=5` on only 7 rows
+**Problem**: Each test fold holds 1 or 2 rows, so R-squared is undefined (hence, the repeated `UndefinedMetricWarning`). The RFECV answer (only `assignments completed`) is not reliable.
+
+Incorrect Code:
+```
+selector = RFECV(estimator, step=1, cv=5)
+```
+
+Correct Code:
+```
+selector = RFECV(estimator, step=1, cv=3)
 ```
 
 ### Chapter 8
-**Mistake 1**:
+**Mistake 1**: Every other column is silently dropped
+**Problem**: `ColumnTransformer` drops unlisted columns by default. The output data contains only `Age` and `Fare`. `Sex`, `Pclass`, and the rest are gone.
 
 Incorrect Code:
 ```
+preprocessor = ColumnTransformer(transformers=[
+('age_fare', pipeline, ['Age', 'Fare'])
+])
 ```
 
 Correct Code:
 ```
+preprocessor = ColumnTransformer(transformers=[
+('age_fare', pipeline, ['Age', 'Fare'])
+], remainder='passthrough')
 ```
 
 ### Chapter 9
-**Mistake 1**: 
+**Mistake 1**: Discretization overwrites the original Age column
+**Problem**:  `pd.cut` replaces the numeric Age with text labels. The original data are lost, so "before" and "after" can't be compared. Also, 50 is a young cutoff for `Elderly`.
 
 Incorrect Code:
 ```
+bins = [0, 12, 50, 200]
+labels = ['Child', 'Adult', 'Elderly']
+data['Age'] = pd.cut(data['Age'], bins=bins, labels=labels)
 ```
 
 Correct Code:
 ```
+bins = [0, 12, 60, 120]
+labels = ['Child', 'Adult', 'Senior']
+data['Age_Group'] = pd.cut(data['Age'], bins=bins, labels=labels)
+```
+
+**Mistake 2**: Incorrect "before" and "after" plots
+**Problem**:  The "before" cell plots Age after it was already converted (bars 581, 64, 69 are group counts). The "after" cell plots `titanic_preprocessed[:, 2]`, the `Embarked_C` one-hot column, not age.
+
+Incorrect Code:
+```
+plt.hist(data['Age'].dropna(), alpha=0.5, label='Before discretization')
+plt.hist(titanic_preprocessed[:,2], alpha=0.5, label='After discretization')
+```
+
+Correct Code:
+```
+plt.hist(data['Age'].dropna(), bins=20, alpha=0.7, label='Before discretization')
+data['Age_Group'].value_counts().reindex(labels).plot(kind='bar', alpha=0.7, label='After discretization')
+plt.legend()
+plt.show()
 ```
 
 
