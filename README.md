@@ -47,7 +47,7 @@ I learned from this chapter that choosing the most relevant subset among all the
 I learned that preprocessing pipelines are simply sticked-together processes in cleaning data to make the workflow, automatic, clean, and more organized. 
 
 ### 📂 Chapter 9: Full Pipeline and Visualization
-
+In this last chapter, a full end-to-end pipeline for both numerical and categorical data was stitched together along with its visual representations (via matplotlib.pylot and seaborn) based on the `train.csv` Titanic dataset. Another useful thing that I learned here is the importance of making visual plots after preprocessing not just for formality and aesthetic purposes but rather to validate how processes such as age discretization change what the data tells us.   
 
 ## Errors I found
 > List any mistake you found in the original notebooks, and the correct version.
